@@ -1,7 +1,7 @@
 ---
 title: "A Postmortem on the Circle Line Shutdown, Part 2: What Changed That You Couldn't See on a Map"
 description: Accessibility, structural redundancy, and what completing the Circle Line loop changed.
-pubDate: 2026-07-15
+pubDate: 2026-07-27
 category: case-studies
 tags:
   - graph-theory

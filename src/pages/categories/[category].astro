@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { categories } from '../../site';
-import { toDate } from '../../utils/dates';
+import { sortNewestFirst } from '../../utils/dates';
 
 export async function getStaticPaths() {
   return Object.keys(categories).map((cat) => ({
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 const { category } = Astro.params;
 const categoryInfo = categories[category];
 const posts = await getCollection('blog', ({ data }) => data.category === category && !data.draft);
-posts.sort((a, b) => toDate(b.data.pubDate).valueOf() - toDate(a.data.pubDate).valueOf());
+posts.sort(sortNewestFirst);
 ---
 
 <BaseLayout title={categoryInfo.label} description={categoryInfo.description}>

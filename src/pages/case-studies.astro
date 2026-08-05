@@ -3,10 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleGrid from '../components/ArticleGrid.astro';
 import { categories } from '../site';
-import { toDate } from '../utils/dates';
+import { sortNewestFirst } from '../utils/dates';
 
 const posts = await getCollection('blog', ({ data }) => data.category === 'case-studies' && !data.draft);
-posts.sort((a, b) => toDate(b.data.pubDate).valueOf() - toDate(a.data.pubDate).valueOf());
+posts.sort(sortNewestFirst);
 ---
 
 <BaseLayout title="Case Studies" description={categories['case-studies'].description}>
