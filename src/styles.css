@@ -319,32 +319,34 @@ a {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 2rem 2.2rem;
+  padding: 2.25rem 2.4rem;
 }
 
-.focus-label {
-  margin: 0 0 1.6rem;
+.focus-card .section-label {
+  margin: 0 0 2rem;
 }
 
-.focus-row {
-  margin-bottom: 1.5rem;
+.focus-card dl {
+  display: grid;
+  gap: 1.75rem;
+  margin: 0;
 }
 
-.focus-row:last-child {
-  margin-bottom: 0;
+.focus-card dl > div {
+  display: grid;
+  gap: 0.45rem;
 }
 
-.focus-key {
-  margin: 0 0 0.35rem;
+.focus-card dt {
   color: var(--text-muted);
   font-size: 0.82rem;
 }
 
-.focus-value {
+.focus-card dd {
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.4;
 }
 
