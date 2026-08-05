@@ -1,0 +1,15 @@
+---
+import ArticleCard from './ArticleCard.astro';
+
+const {
+  posts,
+  emptyMessage = 'Nothing published yet.',
+  layout = 'grid',
+  showThumbnails = true,
+} = Astro.props;
+---
+
+<div class:list={['article-grid', layout === 'vertical' ? 'article-grid-vertical' : 'article-grid-3']}>
+  {posts.map((post) => <ArticleCard post={post} showThumbnail={showThumbnails} />)}
+  {posts.length === 0 && <p class="empty-state">{emptyMessage}</p>}
+</div>

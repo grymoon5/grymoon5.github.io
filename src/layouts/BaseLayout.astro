@@ -1,0 +1,71 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site';
+import '../styles.css';
+
+const { title, description } = Astro.props;
+const pageName = title === site.title ? 'Home' : title;
+const documentTitle = `${pageName} — ${site.name}`;
+---
+
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{documentTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+    <script>
+      const root = document.documentElement;
+      const toggleBtn = document.querySelector('[data-theme-toggle]');
+      const icon = document.querySelector('[data-theme-icon]');
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (icon) icon.textContent = theme === 'dark' ? 'Dark' : 'Light';
+      }
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      } else {
+        applyTheme('light');
+      }
+
+      toggleBtn?.addEventListener('click', () => {
+        const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+
+      async function updateArticleViews(el) {
+        const slug = el.dataset.viewSlug;
+        const mode = el.dataset.viewMode ?? 'get';
+        const namespace = 'articles-by-aishwarya';
+        const endpoint = mode === 'hit' ? 'hit' : 'get';
+
+        try {
+          const response = await fetch(`https://api.countapi.xyz/${endpoint}/${namespace}/${slug}`);
+          if (!response.ok) throw new Error('view counter failed');
+          const data = await response.json();
+          el.textContent = `${Number(data.value).toLocaleString()} views`;
+        } catch {
+          el.textContent = 'views unavailable';
+        }
+      }
+
+      document.querySelectorAll('[data-view-slug]').forEach(updateArticleViews);
+    </script>
+  </body>
+</html>

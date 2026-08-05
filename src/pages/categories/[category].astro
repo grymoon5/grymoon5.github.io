@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { categories } from '../../site';
+import { toDate } from '../../utils/dates';
+
+export async function getStaticPaths() {
+  return Object.keys(categories).map((cat) => ({
+    params: { category: cat },
+  }));
+}
+
+const { category } = Astro.params;
+const categoryInfo = categories[category];
+const posts = await getCollection('blog', ({ data }) => data.category === category && !data.draft);
+posts.sort((a, b) => toDate(b.data.pubDate).valueOf() - toDate(a.data.pubDate).valueOf());
+---
+
+<BaseLayout title={categoryInfo.label} description={categoryInfo.description}>
+  <main class="shell section">
+    <p class="section-label">Category</p>
+    <h1 class="section-title">{categoryInfo.label}</h1>
+    <p class="section-intro">{categoryInfo.description}</p>
+
+    <div class="article-grid">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+    {posts.length === 0 && <p class="section-intro">No posts published in this category yet.</p>}
+  </main>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
+import { categories } from '../site';
+import { toDate } from '../utils/dates';
+
+const posts = await getCollection('blog', ({ data }) => data.category === 'build-in-public' && !data.draft);
+posts.sort((a, b) => toDate(b.data.pubDate).valueOf() - toDate(a.data.pubDate).valueOf());
+---
+
+<BaseLayout title="Build in Public" description={categories['build-in-public'].description}>
+  <main>
+    <header class="page-header">
+      <p class="section-label">Series</p>
+      <h1 class="section-title">Build in Public</h1>
+      <p class="section-intro">What I'm actually building the problem, the solution, what broke in production, and what I'd do differently.</p>
+    </header>
+    <section class="section-wide series-page">
+      <ArticleGrid posts={posts} />
+    </section>
+  </main>
+</BaseLayout>

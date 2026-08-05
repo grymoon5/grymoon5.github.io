@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
+import { categories } from '../site';
+import { toDate } from '../utils/dates';
+
+const posts = await getCollection('blog', ({ data }) => data.category === 'career' && !data.draft);
+posts.sort((a, b) => toDate(b.data.pubDate).valueOf() - toDate(a.data.pubDate).valueOf());
+---
+
+<BaseLayout title="Career Notes" description={categories.career.description}>
+  <main>
+    <header class="page-header">
+      <p class="section-label">Series</p>
+      <h1 class="section-title">Career Notes</h1>
+      <p class="section-intro">Notes on hiring, job searching, and the career decisions that don't usually show up in a portfolio.</p>
+    </header>
+    <section class="section-wide series-page">
+      <ArticleGrid posts={posts} layout="vertical" showThumbnails={false} emptyMessage="First career note is on its way. Check back soon." />
+    </section>
+  </main>
+</BaseLayout>

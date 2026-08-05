@@ -1,0 +1,45 @@
+---
+import { categories } from '../site';
+import { toDate } from '../utils/dates';
+
+const post = Astro.props.post;
+const showThumbnail = Astro.props.showThumbnail ?? true;
+const title = post?.data?.title ?? Astro.props.title;
+const summary = post?.data?.description ?? Astro.props.summary;
+const category = post?.data?.category ?? Astro.props.category;
+const slug = post?.id ?? post?.slug ?? Astro.props.slug;
+const categoryInfo = categories[category];
+const pubDate = post?.data?.pubDate ? toDate(post.data.pubDate) : undefined;
+const fallbackThumbnail = category === 'case-studies'
+  ? '/images/thumb-case-studies.svg'
+  : category === 'build-in-public'
+    ? '/images/thumb-build-in-public.svg'
+    : '/images/thumb-career-notes.svg';
+const thumbnail = post?.data?.coverImage ?? fallbackThumbnail;
+---
+
+<a class:list={['article-card', { 'article-card-text': !showThumbnail }]} href={`/blog/${slug}`}>
+  {showThumbnail && (
+    <div class="article-thumb">
+      <img src={thumbnail} alt={post?.data?.coverAlt ?? ''} loading="lazy" />
+    </div>
+  )}
+  <div class="article-card-body">
+    <div class="article-meta">
+      <span>{categoryInfo?.label ?? category?.replace(/-/g, ' ')}</span>
+      {pubDate && (
+        <time datetime={pubDate.toISOString()}>
+          {pubDate.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' })}
+        </time>
+      )}
+      <span data-view-slug={slug} data-view-mode="get">views loading</span>
+    </div>
+    <h3 class="article-title">{title}</h3>
+    <p class="article-summary">{summary}</p>
+    {post?.data?.tags?.length > 0 && (
+      <div class="tags">
+        {post.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}
+      </div>
+    )}
+  </div>
+</a>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait placeholder</title>
+  <desc id="desc">Warm abstract portrait with topographic lines and the initials AE.</desc>
+  <rect width="800" height="1000" fill="#E4C68F"/>
+  <path d="M-70 170C120 30 252 260 432 119s297-52 446 89M-88 250c191-141 341 80 510-48s310-53 456 88M-59 835c169-176 350 61 535-85s299-20 411 89" fill="none" stroke="#4A362B" stroke-width="6" opacity=".22"/>
+  <circle cx="400" cy="405" r="174" fill="#F3EAD9"/>
+  <path d="M222 425c20-190 80-278 188-278 115 0 180 108 175 290-62-69-125-103-191-103-62 0-120 30-172 91Z" fill="#4A362B"/>
+  <path d="M285 400c0-83 50-145 117-145 69 0 119 63 119 145 0 90-49 162-119 162-68 0-117-72-117-162Z" fill="#C6862B"/>
+  <path d="M149 1000c19-238 108-357 253-357 148 0 239 119 267 357" fill="#7A3B2E"/>
+  <text x="400" y="875" text-anchor="middle" fill="#F3EAD9" font-family="Georgia,serif" font-size="94">AE</text>
+</svg>

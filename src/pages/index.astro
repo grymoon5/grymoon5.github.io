@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { categories, site } from '../site.ts';
+---
+
+<BaseLayout title={site.title} description={site.description}>
+  <main id="top">
+    <section class="wide-shell hero">
+      <div>
+        <p class="eyebrow">Full-Stack Engineer (Geospatial) &middot; Community &amp; Programs Lead, WDS &middot; Technical Writer</p>
+        <h1>I build tools people <em>actually</em> use &mdash; and write about why they work.</h1>
+        <p class="hero-sub">
+          I write case studies, build logs, and career notes from the practical middle of software engineering:
+          JavaScript, TypeScript, Python, Supabase, QGIS, messy requirements, and the lessons that survive real users.
+        </p>
+        <div class="hero-actions">
+          <a href="/case-studies" class="btn btn-primary">Read case studies</a>
+        </div>
+      </div>
+
+      <aside class="focus-card" aria-label="Current focus">
+        <p class="section-label">Current Focus</p>
+        <dl>
+          <div><dt class="stat-label">Building now</dt><dd>A career platform with JavaScript, CSS, and Supabase.</dd></div>
+          <div><dt class="stat-label">Stack</dt><dd>JavaScript, TypeScript, Python, Supabase, QGIS, ETL pipelines, and spatial analysis.</dd></div>
+          <div><dt class="stat-label">Writing</dt><dd>Technical content on GIS, Python workflows, and lightweight ETL pipelines for 500+ monthly readers.</dd></div>
+          <div><dt class="stat-label">Open to</dt><dd>Full-stack, geospatial, or data engineering roles where I can keep building things people use.</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <div class="wide-shell contour-divider" aria-hidden="true">
+      <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,30 C150,10 300,50 450,30 C600,10 750,50 900,30 C1050,10 1150,40 1200,30" fill="none" stroke="var(--marigold)" stroke-width="1.5" opacity="0.5" />
+        <path d="M0,40 C150,20 300,55 450,40 C600,20 750,55 900,40 C1050,20 1150,45 1200,40" fill="none" stroke="var(--oxblood)" stroke-width="1" opacity="0.35" />
+      </svg>
+    </div>
+
+    <section id="about" class="shell section">
+      <p class="section-label">01 / About Me</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title">Hi, I'm Aishwarya.</h2>
+          <div class="about-copy">
+            <p>
+              I'm a full-stack software engineer who builds geospatial and community tools. I work across the stack: front-end (JavaScript, TypeScript), data (Python, ETL pipelines, spatial analysis), and databases (Supabase).
+            </p>
+            <p>
+              From a career platform on JavaScript, CSS and Supabase, to a volunteer task board that lets our volunteers see upcoming events and their tasks at a glance, I enjoy building tools people actually use.
+            </p>
+            <p>
+              Alongside building, I write technical content on geospatial concepts, hands-on projects and career advice. I am also a Community &amp; Programs Lead, leading community and technical initiatives at Women Devs SG.
+            </p>
+          </div>
+        </div>
+        <div class="about-portrait">
+          <div class="profile-photo">
+            <img src={site.profileImage} alt="Placeholder for a 2D portrait illustration of Aishwarya Elango" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing-series" class="shell section">
+      <p class="section-label">02 / Writing Series</p>
+      <h2 class="section-title">Choose a series</h2>
+      <p class="section-intro">
+        Each collection opens on its own page with every published article in that series.
+      </p>
+      <div class="category-grid">
+        {(['case-studies', 'build-in-public', 'career'] as const).map((slug) => (
+          <a href={slug === 'career' ? '/career-notes' : `/${slug}`} class="category-card">
+            <h3>{categories[slug].label}</h3>
+            <p>{categories[slug].description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section id="spotme" class="shell section">
+      <p class="section-label">03 / Online Segments</p>
+      <h2 class="section-title">#SpotMe</h2>
+      <p class="section-intro">
+        Talks, panels, workshops, and online sessions I have done.
+      </p>
+      <div class="spotme-grid">
+        {site.spotMe.map((item) => (
+          <a href={item.href} class:list={['spotme-card', { 'spotme-card-wide': item.wide }]} target="_blank" rel="noopener">
+            <div class="spotme-thumb">
+              <img src={item.thumbnail} alt={item.thumbnailAlt} loading="lazy" />
+              <span aria-hidden="true">Play</span>
+            </div>
+            <div class="spotme-meta">
+              <span class="spotme-tag">{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section id="contact" class="shell section">
+      <div class="contact-panel">
+        <div>
+          <p class="section-label">04 / Contact</p>
+          <h2 class="section-title">Let's Talk</h2>
+          <p class="section-intro">
+            Open to full-stack, geospatial, data, community tech, and writing conversations.
+          </p>
+          <div class="socials">
+            {site.socials.map((social) => (
+              <a class="social-link" href={social.href} target="_blank" rel="noopener">{social.label}</a>
+            ))}
+          </div>
+        </div>
+        <a href={`mailto:${site.email}`} class="btn btn-primary">Contact me</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

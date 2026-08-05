@@ -1,0 +1,32 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { categories } from '../site';
+import { toDate } from '../utils/dates';
+
+const { post } = Astro.props;
+const category = categories[post.data.category];
+const pubDate = toDate(post.data.pubDate);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <main class="publication-shell">
+    <article class="publication-prose">
+      <header class="post-header">
+        <a href={`/categories/${post.data.category}`} class="section-label">{category.label}</a>
+        <h1>{post.data.title}</h1>
+        <p class="section-intro">{post.data.description}</p>
+        <div class="article-meta">
+          <time datetime={pubDate.toISOString()}>
+            {pubDate.toLocaleDateString('en-SG', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </time>
+          <span data-view-slug={post.id} data-view-mode="hit">views loading</span>
+          {post.data.geospatialTech?.length && <span>{post.data.geospatialTech.join(' / ')}</span>}
+        </div>
+      </header>
+      {post.data.coverImage && (
+        <img class="post-cover" src={post.data.coverImage} alt={post.data.coverAlt ?? ''} />
+      )}
+      <slot />
+    </article>
+  </main>
+</BaseLayout>
