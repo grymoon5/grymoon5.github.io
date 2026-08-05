@@ -1,6 +1,6 @@
 ---
-title: "A Postmortem on the Circle Line Shutdown, Part 2: Why One Closure Affected So Many People"
-description: Why one closure affected close to 480,000 commuters.
+title: "A Postmortem on the Circle Line Shutdown, Part 2: What Changed That You Couldn't See on a Map"
+description: Accessibility, structural redundancy, and what completing the Circle Line loop changed.
 pubDate: 2026-07-15
 category: case-studies
 tags:
