@@ -18,13 +18,13 @@ This is Part 1 of a two-part breakdown of what happened, and the concepts that e
 
 ### **Before: The Network Was a Graph With No Redundancy**
 
-![](https://cdn.hashnode.com/uploads/covers/6a3feba789443adf24215def/09251420-ff23-4728-a640-41524605a20d.png align="center")
+![Circle Line network shown as an open arc before Stage 6](/images/circle-line-open-network.png)
 
 Before July 2026, the Circle Line was not a closed loop. It ran as an open arc from Dhoby Ghaut to HarbourFront. Every journey along the line depended on one continuous path. There was no alternate route within the line itself.
 
 In December 2025, LTA announced that tunnel segments between Paya Lebar, Dakota, and Mountbatten needed reinforcement due to gradual deformation caused by soft marine clay. The affected stretch was closed for tunnel strengthening from January 17 to April 19, 2026. That is estimated to be about 93 days, which is the longest planned MRT disruption in Singapore's history. About 480,000 commuters were expected to be affected.
 
-![](https://cdn.hashnode.com/uploads/covers/6a3feba789443adf24215def/946dbf8c-e901-41ef-a413-cff80c60d03e.png align="center")
+![Circle Line disruption splitting the rail network into disconnected sections](/images/circle-line-disruption.png)
 
 Because the line had no redundancy, removing one section did not just create a detour. It split the line into two disconnected parts. This is called a single point of failure: a component whose removal causes a significant loss of connectivity. Reducing single points of failure is a standard goal in resilient network design, applying equally to transport networks, power grids, telecommunications, and computer networks.
 
@@ -42,7 +42,7 @@ This is known as betweenness centrality:
 
 Stations with high betweenness centrality are structurally more likely to absorb rerouted traffic when a nearby segment fails, because they already sit on a large share of alternate paths. This same metric is used to identify bottlenecks in road networks, plan disaster evacuation routes, and study airport terminal congestion.
 
-![](https://cdn.hashnode.com/uploads/covers/6a3feba789443adf24215def/f7f04409-a4f6-4226-97fd-f02db6a47888.png align="center")
+![Diagram showing Bishan station's high betweenness centrality](/images/circle-line-betweenness-centrality.png)
 
 **As shown in the diagram above, Bishan has high betweenness centrality.** Many shortest paths naturally pass through it, so when nearby routes fail, congestion is redirected there.
 
