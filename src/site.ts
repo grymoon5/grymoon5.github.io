@@ -46,12 +46,12 @@ export const categories = {
   'build-in-public': {
     label: 'Build in Public',
     description:
-      "What I'm actually building — the problem, the solution, what broke in production, and what I'd do differently.",
+      "What I'm actually building: the problem, the solution, what broke in production, and what I'd do differently.",
   },
   'case-studies': {
     label: 'Case Studies',
     description:
-      "Where I break down geospatial and engineering concepts through real infrastructure — starting with Singapore's transport and mapping networks.",
+      "Where I break down geospatial and engineering concepts through real infrastructure, starting with Singapore's transport and mapping networks.",
   },
   career: {
     label: 'Career Notes',

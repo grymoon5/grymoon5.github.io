@@ -6,7 +6,7 @@ import '../styles.css';
 
 const { title, description } = Astro.props;
 const pageName = title === site.title ? 'Home' : title;
-const documentTitle = `${pageName} — ${site.name}`;
+const documentTitle = `${pageName} | ${site.name}`;
 ---
 
 <html lang="en" data-theme="light">

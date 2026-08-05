@@ -26,7 +26,7 @@ This is the concept that explains why the closure felt worse than the map sugges
 
 ## After: The Loop Closed, and the Topology Changed
 
-On July 12, 2026, three new stations — Keppel, Cantonment, and Prince Edward Road — opened, completing Circle Line Stage 6.
+On July 12, 2026, three new stations, Keppel, Cantonment, and Prince Edward Road, opened, completing Circle Line Stage 6.
 
 ![](https://cdn.hashnode.com/uploads/covers/6a3feba789443adf24215def/a3b30bca-f83f-4c77-9803-d78203580760.png align="center")
 
