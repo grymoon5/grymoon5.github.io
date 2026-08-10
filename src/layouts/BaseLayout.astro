@@ -9,7 +9,7 @@ const pageName = title === site.title ? 'Home' : title;
 const documentTitle = `${pageName} | ${site.name}`;
 ---
 
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,7 @@ const documentTitle = `${pageName} | ${site.name}`;
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <Header />
@@ -31,16 +31,14 @@ const documentTitle = `${pageName} | ${site.name}`;
 
       function applyTheme(theme) {
         root.setAttribute('data-theme', theme);
-        if (icon) icon.textContent = theme === 'dark' ? 'Dark' : 'Light';
+        if (icon) icon.textContent = theme === 'dark' ? 'Midnight' : 'Paper';
       }
 
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         applyTheme(savedTheme);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        applyTheme('dark');
       } else {
-        applyTheme('light');
+        applyTheme('dark');
       }
 
       toggleBtn?.addEventListener('click', () => {

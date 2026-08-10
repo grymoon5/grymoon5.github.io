@@ -15,7 +15,7 @@ This is a custom Astro publication designed around my work as a geospatial softw
 - Light and dark themes
 - Article view counts and an RSS feed
 
-The visual system uses a warm autumn palette, Fraunces for display type, Inter for body copy, and JetBrains Mono for article metadata.
+The Midnight Contour visual system uses warm timber black, dark bark, paper white, copper, and olive. Space Mono leads the interface, Inter carries body copy, and JetBrains Mono handles article metadata and spatial coordinates.
 
 ## Built with
 

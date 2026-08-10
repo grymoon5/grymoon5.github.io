@@ -5,36 +5,53 @@ import { categories, site } from '../site.ts';
 
 <BaseLayout title={site.title} description={site.description}>
   <main id="top">
-    <section class="wide-shell hero">
-      <div>
-        <p class="eyebrow">Full-Stack Engineer (Geospatial) &middot; Community &amp; Programs Lead, WDS &middot; Technical Writer</p>
-        <h1>I build tools people <em>actually</em> use and write about why they work.</h1>
-        <p class="hero-sub">
-          I write case studies, build logs, and career notes from the practical middle of software engineering:
-          JavaScript, TypeScript, Python, Supabase, QGIS, messy requirements, and the lessons that survive real users.
-        </p>
-        <div class="hero-actions">
-          <a href="/case-studies" class="btn btn-primary">Read case studies</a>
+    <section class="wide-shell hero" aria-labelledby="hero-title">
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <span>PROFILE.SPATIAL</span>
+          <span>SG / 01:21N 103:49E</span>
+        </div>
+        <div class="terminal-content">
+          <p class="eyebrow">Full-Stack Engineer (Geospatial) / Community &amp; Programs Lead, WDS / Technical Writer</p>
+          <h1 id="hero-title">I build tools people <em>actually</em> use and write about why they work.</h1>
+          <p class="hero-sub">
+            Case studies, build logs, and career notes from the practical middle of software engineering.
+          </p>
+          <div class="hero-actions">
+            <a href="/case-studies" class="btn btn-primary">Explore case studies</a>
+            <a href="#about" class="btn btn-secondary">Profile index</a>
+          </div>
+
+          <aside class="focus-card" aria-label="Current focus">
+            <p class="section-label"><span class="status-pulse"></span> Current Focus</p>
+            <dl>
+              <div><dt>Building now</dt><dd>A career platform with JavaScript, CSS, and Supabase.</dd></div>
+              <div><dt>Stack</dt><dd>JavaScript, TypeScript, Python, Supabase, QGIS, ETL pipelines, and spatial analysis.</dd></div>
+              <div><dt>Writing</dt><dd>Technical content on GIS, Python workflows, and lightweight ETL pipelines for 500+ monthly readers.</dd></div>
+              <div><dt>Open to</dt><dd>Full-stack, geospatial, or data engineering roles where I can keep building things people use.</dd></div>
+            </dl>
+          </aside>
         </div>
       </div>
 
-      <aside class="focus-card" aria-label="Current focus">
-        <p class="section-label">Current Focus</p>
-        <dl>
-          <div><dt class="stat-label">Building now</dt><dd>A career platform with JavaScript, CSS, and Supabase.</dd></div>
-          <div><dt class="stat-label">Stack</dt><dd>JavaScript, TypeScript, Python, Supabase, QGIS, ETL pipelines, and spatial analysis.</dd></div>
-          <div><dt class="stat-label">Writing</dt><dd>Technical content on GIS, Python workflows, and lightweight ETL pipelines for 500+ monthly readers.</dd></div>
-          <div><dt class="stat-label">Open to</dt><dd>Full-stack, geospatial, or data engineering roles where I can keep building things people use.</dd></div>
-        </dl>
-      </aside>
+      <div class="spatial-viewport" data-contour-viewport>
+        <canvas data-contour-canvas aria-hidden="true"></canvas>
+        <div class="viewport-grid" aria-hidden="true"></div>
+        <div class="viewport-header">
+          <span>LIVE RELIEF / SINGAPORE</span>
+          <span class="viewport-signal">VECTOR ONLINE</span>
+        </div>
+        <div class="viewport-reticle" aria-hidden="true"><span></span></div>
+        <div class="viewport-coordinates">
+          <span data-coordinate-lat>01.3521 N</span>
+          <span data-coordinate-lng>103.8198 E</span>
+          <span>ELEV 42M</span>
+        </div>
+        <p class="viewport-hint">MOVE CURSOR / READ TERRAIN</p>
+      </div>
     </section>
 
-    <div class="wide-shell contour-divider" aria-hidden="true">
-      <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path d="M0,30 C150,10 300,50 450,30 C600,10 750,50 900,30 C1050,10 1150,40 1200,30" fill="none" stroke="var(--marigold)" stroke-width="1.5" opacity="0.5" />
-        <path d="M0,40 C150,20 300,55 450,40 C600,20 750,55 900,40 C1050,20 1150,45 1200,40" fill="none" stroke="var(--oxblood)" stroke-width="1" opacity="0.35" />
-      </svg>
-    </div>
+    <div class="wide-shell topo-divider" aria-hidden="true"><span>CONTOUR 042M</span></div>
 
     <section id="about" class="shell section">
       <p class="section-label">01 / About Me</p>
@@ -55,7 +72,8 @@ import { categories, site } from '../site.ts';
         </div>
         <div class="about-portrait">
           <div class="profile-photo">
-            <img src={site.profileImage} alt="Placeholder for a 2D portrait illustration of Aishwarya Elango" />
+            <img src={site.profileImage} alt="Illustration of Aishwarya Elango working in geospatial software engineering" />
+            <span class="photo-coordinate">COORD / 1.3521 N / 103.8198 E</span>
           </div>
         </div>
       </div>
@@ -67,11 +85,16 @@ import { categories, site } from '../site.ts';
       <p class="section-intro">
         Each collection opens on its own page with every published article in that series.
       </p>
-      <div class="category-grid">
-        {(['case-studies', 'build-in-public', 'career'] as const).map((slug) => (
+      <div class="layer-stack">
+        {(['case-studies', 'build-in-public', 'career'] as const).map((slug, index) => (
           <a href={slug === 'career' ? '/career-notes' : `/${slug}`} class="category-card">
-            <h3>{categories[slug].label}</h3>
-            <p>{categories[slug].description}</p>
+            <span class="layer-toggle" aria-hidden="true"></span>
+            <span class="layer-index">LAYER {String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{categories[slug].label}</h3>
+              <p>{categories[slug].description}</p>
+            </div>
+            <span class="layer-open" aria-hidden="true">OPEN +</span>
           </a>
         ))}
       </div>
@@ -118,4 +141,88 @@ import { categories, site } from '../site.ts';
       </div>
     </section>
   </main>
+  <script>
+    const viewport = document.querySelector('[data-contour-viewport]');
+    const canvas = document.querySelector('[data-contour-canvas]');
+
+    if (viewport instanceof HTMLElement && canvas instanceof HTMLCanvasElement) {
+      const context = canvas.getContext('2d');
+      const lat = viewport.querySelector('[data-coordinate-lat]');
+      const lng = viewport.querySelector('[data-coordinate-lng]');
+      let pointerX = 0.56;
+      let pointerY = 0.43;
+      let targetX = pointerX;
+      let targetY = pointerY;
+      let width = 0;
+      let height = 0;
+      let frame = 0;
+
+      const resize = () => {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = viewport.getBoundingClientRect();
+        width = Math.max(1, rect.width);
+        height = Math.max(1, rect.height);
+        canvas.width = Math.round(width * ratio);
+        canvas.height = Math.round(height * ratio);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        context?.setTransform(ratio, 0, 0, ratio, 0, 0);
+      };
+
+      const drawContour = (radius, offset, color, lineWidth) => {
+        if (!context) return;
+        context.beginPath();
+        const points = 180;
+        for (let index = 0; index <= points; index += 1) {
+          const angle = (index / points) * Math.PI * 2;
+          const wave = Math.sin(angle * 3 + offset * 0.35) * 0.075 + Math.cos(angle * 5 - offset * 0.2) * 0.04;
+          const rx = radius * (1 + wave) * 1.18;
+          const ry = radius * (0.72 + wave * 0.6);
+          const x = pointerX * width + Math.cos(angle) * rx;
+          const y = pointerY * height + Math.sin(angle) * ry;
+          if (index === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        }
+        context.closePath();
+        context.strokeStyle = color;
+        context.lineWidth = lineWidth;
+        context.stroke();
+      };
+
+      const render = () => {
+        if (!context) return;
+        pointerX += (targetX - pointerX) * 0.055;
+        pointerY += (targetY - pointerY) * 0.055;
+        context.clearRect(0, 0, width, height);
+
+        const styles = getComputedStyle(document.documentElement);
+        const copper = styles.getPropertyValue('--copper').trim();
+        const olive = styles.getPropertyValue('--olive').trim();
+        const base = Math.min(width, height) * 0.095;
+
+        for (let index = 1; index <= 10; index += 1) {
+          drawContour(base * index, index, index % 3 === 0 ? olive : copper, index % 3 === 0 ? 1.2 : 0.8);
+        }
+        frame = requestAnimationFrame(render);
+      };
+
+      viewport.addEventListener('pointermove', (event) => {
+        const rect = viewport.getBoundingClientRect();
+        targetX = (event.clientX - rect.left) / rect.width;
+        targetY = (event.clientY - rect.top) / rect.height;
+        if (lat) lat.textContent = `${(1.29 + targetY * 0.12).toFixed(4)} N`;
+        if (lng) lng.textContent = `${(103.73 + targetX * 0.18).toFixed(4)} E`;
+      });
+
+      viewport.addEventListener('pointerleave', () => {
+        targetX = 0.56;
+        targetY = 0.43;
+      });
+
+      new ResizeObserver(resize).observe(viewport);
+      resize();
+      render();
+      document.addEventListener('astro:before-swap', () => cancelAnimationFrame(frame), { once: true });
+    }
+  </script>
 </BaseLayout>
