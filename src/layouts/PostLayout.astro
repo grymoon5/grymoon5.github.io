@@ -1,14 +1,39 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { categories } from '../site';
+import { categories, site } from '../site';
 import { toDate } from '../utils/dates';
 
 const { post } = Astro.props;
 const category = categories[post.data.category];
 const pubDate = toDate(post.data.pubDate);
+const updatedDate = post.data.updatedDate ? toDate(post.data.updatedDate) : undefined;
+const canonicalURL = new URL(`/blog/${post.id}/`, site.url).href;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${canonicalURL}#article`,
+  mainEntityOfPage: canonicalURL,
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@id': `${site.url}/#author` },
+  publisher: { '@id': `${site.url}/#author` },
+  image: post.data.coverImage ? new URL(post.data.coverImage, site.url).href : undefined,
+  articleSection: category.label,
+  keywords: post.data.tags.join(', '),
+};
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.coverImage}
+  pageType="article"
+  publishedDate={pubDate.toISOString()}
+  modifiedDate={(updatedDate ?? pubDate).toISOString()}
+  schema={articleSchema}
+>
   <main class="publication-shell">
     <article class="publication-prose">
       <header class="post-header">
@@ -16,9 +41,11 @@ const pubDate = toDate(post.data.pubDate);
         <h1>{post.data.title}</h1>
         <p class="section-intro">{post.data.description}</p>
         <div class="article-meta">
+          <span>By {site.author}</span>
           <time datetime={pubDate.toISOString()}>
             {pubDate.toLocaleDateString('en-SG', { month: 'long', day: 'numeric', year: 'numeric' })}
           </time>
+          {updatedDate && <span>Updated <time datetime={updatedDate.toISOString()}>{updatedDate.toLocaleDateString('en-SG', { month: 'long', day: 'numeric', year: 'numeric' })}</time></span>}
           <span data-view-slug={post.id} data-view-mode="hit">views loading</span>
           {post.data.geospatialTech?.length && <span>{post.data.geospatialTech.join(' / ')}</span>}
         </div>

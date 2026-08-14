@@ -4,9 +4,40 @@ import Footer from '../components/Footer.astro';
 import { site } from '../site';
 import '../styles.css';
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  image = site.profileImage,
+  pageType = 'website',
+  publishedDate,
+  modifiedDate,
+  schema,
+} = Astro.props;
 const pageName = title === site.title ? 'Home' : title;
 const documentTitle = `${pageName} | ${site.name}`;
+const canonicalURL = new URL(Astro.url.pathname, site.url).href;
+const imageURL = new URL(image, site.url).href;
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: site.url,
+      name: site.title,
+      description: site.description,
+      publisher: { '@id': `${site.url}/#author` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#author`,
+      name: site.author,
+      url: `${site.url}/#about`,
+      image: new URL(site.profileImage, site.url).href,
+      sameAs: site.socials.map(({ href }) => href).filter((href) => !href.includes('REPLACE_')),
+    },
+  ],
+};
 ---
 
 <html lang="en" data-theme="dark">
@@ -15,7 +46,25 @@ const documentTitle = `${pageName} | ${site.name}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{documentTitle}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content={pageType} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:title" content={documentTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+    {publishedDate && <meta property="article:published_time" content={publishedDate} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+    {pageType === 'article' && <meta property="article:author" content={site.author} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={documentTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={imageURL} />
     <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
